@@ -1,0 +1,33 @@
+{% extends "layout.html"%}
+{% block title%}{{member.username}}{%endblock%}
+{%block content%}
+
+
+
+<section class="section-50">
+    <div class="container">
+        <h3 class="m-b-50 heading-line">Member <i class="fa-solid fa-user"></i></h3>
+
+        <div class="notification-ui_dd-content">
+            
+            <div class="notification-list notification-list--unread" >
+                <div class="notification-list_content">
+                    <div class="notification-list_detail" >
+                        <p ><b>{{member.username}} </b><br> Admission : {{member.admission_date}} </p>
+                        <p  >Amount Paid : {{member.amount_paid}} <br> Phone : {{member.phone_number}} </p>
+                        <p ><small>Last Paid on {{member.last_paid}}</small> Due Date : {{member.due_date}}</p>
+                    </div>
+                </div>
+                <!-- <div class="notification-list_feature-img">
+                       <img src="./static/logo.png" alt="sjadshajkd">
+                </div> -->
+            </div>
+            
+        </div>
+
+        
+
+    </div>
+</section>
+
+{%endblock%}

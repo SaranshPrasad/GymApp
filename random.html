@@ -1,0 +1,52 @@
+<!-- {% extends 'layout.html' %}
+{% block title %}Home{% endblock %}
+{% block content %}
+<div class="container col-xxl-8 px-4 py-5">
+    <div class="row flex-lg-row-reverse align-items-center justify-content-center g-5 py-5">
+      <div class="col-10 col-sm-8 col-lg-6">
+        <img src="static/logo.png" class="d-block mx-lg-auto img-fluid" alt="Bootstrap Themes" width="700" height="500" loading="lazy">
+      </div>
+      <div class="col-lg-6">
+        <h1 class="display-5 fw-bold lh-1 mb-3">Fitness Garage</h1>
+        <p class="lead">Enduring means accepting. Accepting things as they are and not as you would wish them to be, and then looking ahead, not behind.</p>
+        <div class="d-grid  d-md-flex justify-content-md-start" style="gap:5px">
+          <button type="button" class="btn btn-primary btn-lg px-4 me-md-2" ><a href="{{ url_for('dashboard') }}" style="color:white;text-decoration: none;">Dashboard</a></button>
+          <button type="button" class="btn btn-primary btn-lg px-4"><a href="{{ url_for('logout') }}" style="color: white;text-decoration: none;">Logout</a></button>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %} -->
+{% extends 'layout.html' %}
+{% block title %}Add Member{% endblock %}
+{% block content %}
+    <h2>Add Member</h2>
+    <form method="POST" action="{{ url_for('add_member') }}">
+        <div class="form-group">
+            <label for="username">Username</label>
+            <input type="text" class="form-control" id="username" name="username" placeholder="Enter username" required>
+        </div>
+        <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" class="form-control" id="email" name="email" placeholder="Enter email" required>
+        </div>
+        <div class="form-group">
+            <label for="phone">Phone</label>
+            <input type="text" class="form-control" id="phone" name="phone" placeholder="Enter phone number" required>
+        </div>
+        <div class="form-group">
+            <label for="admission_date">Admission Date</label>
+            <input type="date" class="form-control" id="admission_date" name="admission_date" required>
+        </div>
+        <div class="form-group">
+            <label for="amount">Amount</label>
+            <input type="number" step="0.01" class="form-control" id="amount" name="amount" placeholder="Enter amount" required>
+        </div>
+        <div class="form-group">
+            <label for="due_date">Due Date</label>
+            <input type="date" class="form-control" id="due_date" name="due_date" placeholder="Enter due date if old member otherwise leave empty.">
+        </div>
+        <button type="submit" class="btn btn-primary">Add Member</button>
+    </form>
+{% endblock %}
+
