@@ -16,6 +16,16 @@
                         <p ><b>{{member.username}} </b><br> Admission : {{member.admission_date}} </p>
                         <p  >Amount Paid : {{member.amount_paid}} <br> Phone : {{member.phone_number}} </p>
                         <p ><small>Last Paid on {{member.last_paid}}</small> Due Date : {{member.due_date}}</p>
+                        <form action="{{ url_for('update_due_date', member_id=member.id) }}" method="post">
+                             <input
+            type="number"
+            step="0.01"
+            name="payment_amount"
+            placeholder=" Enter paid amount !"
+            required
+          />
+                        <button type="submit">Update Payment</button>
+                        </form>
                     </div>
                 </div>
                 <!-- <div class="notification-list_feature-img">
