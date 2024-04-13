@@ -10,7 +10,7 @@ app.config['SECRET_KEY'] = 'sahgdyevdjvwy'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['ALLOWED_EXTENSIONS'] = {'png', 'jpg', 'jpeg', 'gif'}
 app.config['UPLOAD_FOLDER'] = 'static\\uploads'
-app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get("DATABASE_URL")
+app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql://gymdb_1d63_user:uAu3T7OKmggkDZ9cjA5t8PqyuMoaB5aF@dpg-co1e6docmk4c73e98rt0-a/gymdb_1d63"
 
 
 db = SQLAlchemy(app)
