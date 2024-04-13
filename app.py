@@ -8,8 +8,6 @@ import os
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'sahgdyevdjvwy'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-app.config['ALLOWED_EXTENSIONS'] = {'png', 'jpg', 'jpeg', 'gif'}
-app.config['UPLOAD_FOLDER'] = 'static\\uploads'
 app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql://gymdb_1d63_user:uAu3T7OKmggkDZ9cjA5t8PqyuMoaB5aF@dpg-co1e6docmk4c73e98rt0-a/gymdb_1d63"
 
 
@@ -25,14 +23,11 @@ class GymMember(db.Model):
     amount_paid = db.Column(db.Float, nullable=False)
     due_date = db.Column(db.Date, nullable=False)
     last_paid = db.Column(db.Date, nullable=False)
-    photo_path = db.Column(db.String(255))
+
 
 with app.app_context():
     db.create_all()
 
-def allowed_file(filename):
-    return '.' in filename and \
-           filename.rsplit('.', 1)[1].lower() in app.config['ALLOWED_EXTENSIONS']
 # Routes
 @app.route('/')
 def index():
@@ -84,16 +79,8 @@ def add_member():
             due_date = request.form['due_date']
         else:
             due_date = admission_date + timedelta(days=30)
-
-        if 'photo' in request.files:
-            file = request.files['photo']
-            if file.filename != '' and allowed_file(file.filename):
-                filename = secure_filename(file.filename)
-                file_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
-                file.save(file_path)   
-
         new_member = GymMember(username=username, email=email, phone_number=phone, admission_date=admission_date,
-                               amount_paid=amount,  due_date=due_date, last_paid=last_paid, photo_path=file_path)
+                               amount_paid=amount,  due_date=due_date, last_paid=last_paid)
         db.session.add(new_member)
         db.session.commit()
         
@@ -131,11 +118,6 @@ def update_due_date(member_id):
     else:
         flash('Paid amount is less than previous amount', 'danger')
         return redirect(url_for('dashboard'))
-    
-@app.route('/member/photo/<path:filename>')
-def get_member_photo(filename):
-    # Serve the uploaded image from the upload folder
-    return send_from_directory(app.config['UPLOAD_FOLDER'], filename)
  
 @app.route('/delete_member/<int:user_id>', methods=['POST'])
 def delete_member(user_id):
@@ -148,7 +130,6 @@ def delete_member(user_id):
 @app.route('/view_member/<int:user_id>', methods=["GET", "POST"])
 def view_member(user_id):
     member = GymMember.query.get(user_id)
-    photo = member.photo_path
-    return render_template("member.html", member=member, photo=photo)
+    return render_template("member.html", member=member)
 
 
